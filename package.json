@@ -1,0 +1,35 @@
+{
+  "name": "tinder-autopilot",
+  "version": "1.0.0",
+  "description": "Don't waste time swiping. Autopilot will do it for you.",
+  "main": "src/index.js",
+  "repository": "https://github.com/Geczy/tinder-autopilot.git",
+  "author": "Matt Gates <info@mgates.me>",
+  "license": "MIT",
+  "dependencies": {
+    "@testing-library/dom": "^7.7.1",
+    "@testing-library/jest-dom": "^5.9.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/runtime": "^7.8.7",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "invariant": "^2.2.4",
+    "prettier": "^1.19.1",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "browserslist": "> 0.25%, not dead",
+  "scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  }
+}
