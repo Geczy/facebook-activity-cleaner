@@ -4,6 +4,10 @@ const defaultTimeout = {
   timeout: 10000
 };
 
+export function isTag(action) {
+  return action.getAttribute("ajaxify").indexOf("reportable") !== -1
+}
+
 export async function doRemoveTagModalFlow() {
   try {
     await waitForElement(
