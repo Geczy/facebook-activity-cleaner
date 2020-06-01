@@ -12,3 +12,7 @@ export const actionElements = [
 export const reportModal = {
   submitButton: 'button[type="submit"][aria-disabled="true"]'
 };
+
+export const defaultTimeout = {
+  timeout: 20000
+};

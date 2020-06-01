@@ -1,9 +1,19 @@
 {
   "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "plugins": [
     "prettier"
   ],
   "rules": {
     "prettier/prettier": "error"
+  },
+  "globals": {
+    "document": true,
+    "fetch": true,
+    "window": true,
+    "chrome": true
   }
 }

@@ -14,7 +14,7 @@ const hideCompletedActivities = () => {
     .querySelectorAll("div.fbTimelineSectionTransparent > div > div")
     .forEach(heading => {
       heading.style["background-color"] = "transparent";
-      heading.style["border"] = "none";
+      heading.style.border = "none";
       heading.style["padding-bottom"] = "0px";
     });
 
@@ -31,10 +31,10 @@ const hideCompletedActivities = () => {
 const getIncompleteActivities = () => {
   hideCompletedActivities();
 
-  const validRows = Array.from(document.querySelectorAll(editButtonRow));
-  validRows.forEach(row => (row.style.border = "1px solid blue"));
-
-  return validRows;
+  return Array.from(
+    document.querySelectorAll(editButtonRow),
+    row => (row.style.border = "1px solid blue")
+  );
 };
 
 const loadMoreActivities = () => {
@@ -50,7 +50,7 @@ const findActions = () => {
     a.click();
 
     // Since menu is open, we don't need to be seeing this row
-    a.closest(editButtonRow).remove();
+    // a.closest(editButtonRow).remove();
   });
 };
 
@@ -67,18 +67,25 @@ const takeAction = async () => {
 
     // Report/remove tag
     if (isTag(action)) {
-      await doRemoveTagModalFlow();
+      return doRemoveTagModalFlow();
     }
 
     // Delete post
-    else if (isPost(action)) {
-      await doDeletePostModalFlow();
+    if (isPost(action)) {
+      return doDeletePostModalFlow();
     }
   }
 };
 
+const handleNags = () => {
+  const closeContentModal = document.querySelector("a[action=cancel]");
+  if (closeContentModal) closeContentModal.click();
+};
+
 async function main() {
   await timeout(1000);
+
+  handleNags();
 
   if (!getIncompleteActivities().length) {
     loadMoreActivities();

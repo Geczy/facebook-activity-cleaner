@@ -1,24 +1,28 @@
-import { waitForElement, screen } from "@testing-library/dom";
-
-const defaultTimeout = {
-  timeout: 10000
-};
+import {
+  waitForElement,
+  screen,
+  waitForElementToBeRemoved
+} from "@testing-library/dom";
+import { defaultTimeout } from "./constants";
 
 export function isTag(action) {
-  return action.getAttribute("ajaxify").indexOf("reportable") !== -1
+  return action.getAttribute("ajaxify").indexOf("reportable") !== -1;
 }
 
 export async function doRemoveTagModalFlow() {
+  const titles = [
+    "Find Support or Report Comment",
+    "Please select a problem to continue"
+  ];
+
+  let title;
+
   try {
-    await waitForElement(
-      () => screen.getByText("Find Support or Report Comment"),
-      defaultTimeout
-    );
+    await waitForElement(() => screen.getByText(titles[0]), defaultTimeout);
+    title = titles[0];
   } catch (e) {
-    await waitForElement(
-      () => screen.getByText("Please select a problem to continue"),
-      defaultTimeout
-    );
+    await waitForElement(() => screen.getByText(titles[1]), defaultTimeout);
+    title = titles[1];
   }
 
   const spamButton = await waitForElement(
@@ -50,10 +54,7 @@ export async function doRemoveTagModalFlow() {
   finalRemoveTagButton.closest("button").click();
 
   try {
-    const successRemoveTag = await waitForElement(
-      () => screen.getByText("Tag removed"),
-      defaultTimeout
-    );
+    await waitForElement(() => screen.getByText("Tag removed"), defaultTimeout);
   } catch (e) {}
 
   const doneButton = await waitForElement(
@@ -63,5 +64,8 @@ export async function doRemoveTagModalFlow() {
 
   doneButton.click();
 
-  return true;
+  await waitForElementToBeRemoved(
+    () => screen.getByText(title),
+    defaultTimeout
+  );
 }

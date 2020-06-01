@@ -1,8 +1,9 @@
-import { waitForElement, screen } from "@testing-library/dom";
-
-const defaultTimeout = {
-  timeout: 10000
-};
+import {
+  waitForElement,
+  screen,
+  waitForElementToBeRemoved
+} from "@testing-library/dom";
+import { defaultTimeout } from "./constants";
 
 export function isPost(action) {
   return action.getAttribute("ajaxify").indexOf("/delete") !== -1;
@@ -18,5 +19,9 @@ export async function doDeletePostModalFlow() {
   );
 
   deleteButton.click();
-  return true;
+
+  return waitForElementToBeRemoved(
+    () => screen.getByText("Delete Post?"),
+    defaultTimeout
+  );
 }

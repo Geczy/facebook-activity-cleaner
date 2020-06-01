@@ -1,18 +1,17 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   fetch(request.input, request.init).then(
-    function(response) {
-      return response.text().then(function(text) {
-        sendResponse([
-          {
-            body: text,
-            status: response.status,
-            statusText: response.statusText
-          },
-          null
-        ]);
-      });
+    async response => {
+      const text = await response.text();
+      sendResponse([
+        {
+          body: text,
+          status: response.status,
+          statusText: response.statusText
+        },
+        null
+      ]);
     },
-    function(error) {
+    error => {
       sendResponse([null, error]);
     }
   );
